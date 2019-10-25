@@ -27,8 +27,8 @@ window.addEventListener('load', async () => {
             await window.ethereum.enable();
 
             var MyContract = new window.web3.eth.Contract(contractData.abi, contractData.address);
-            var result = MyContract.methods.priceBTC().call().then(function (result) {
-                console.log(result);
+            MyContract.methods.priceBTC().call().then((result) => {
+                updateBanner(result);
             });
         } catch (error) {
             console.error('User denied account access...' + error);
