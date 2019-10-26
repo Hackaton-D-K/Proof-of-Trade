@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proof of Trade: Trader</title>
+    <script src="js/contract.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/BigInteger.js"></script>
+    <script src="js/websnark_bn128.js"></script>
+    <script src="js/stringlifyBigInts.js"></script>
+    <script src="js/witness/bundle.js"></script>
+    <script src="js/trader.js"></script>
+</head>
+<body>
+<h1>Proof of Trade: Trader</h1>
+<h1 id="loading">Loading...</h1>
+<div id="add-account">
+    <h3>0. Add Account</h3>
+    <form id="account-form" name="account-form">
+        <div id="account-error"></div>
+        <label>
+            Email
+            <input type="email" id="account-email" name="account-email"/>
+        </label>
+        <input type="submit" name="account-send" value="Send"/>
+    </form>
+</div>
+<div id="add-signal">
+    <h3>1. Add Signal</h3>
+    <form id="signal-form" name="signal-form">
+        <div id="signal-error"></div>
+        <label for="signal-currency">Currency</label>
+        <select name="signal-currency" id="signal-currency">
+            <option value="ETH">ETH</option>
+            <option value="BTC" disabled>BTC</option>
+            <option value="DGTX" disabled>DGTX</option>
+        </select>
+        <label>
+            Amount
+            <input type="number" name="signal-amount" id="signal-amount" value="1"/>
+        </label>
+        <label for="signal-nonce">
+            Nonce
+            <input type="text" name="signal-nonce" id="signal-nonce"/>
+        </label>
+        <input type="button" name="signal-buy" id="signal-buy" value="Buy"/>
+        <input type="button" name="signal-sell" id="signal-sell" value="Sell"/>
+    </form>
+</div>
+<div id="period">
+    <h3>2. Create Period</h3>
+    <form id="generate-form" name="generate-form">
+        <div id="generate-error"></div>
+        <ol>
+            <li>
+                <label for="period-currency-1">Currency</label>
+                <select name="period-currency-1" id="period-currency-1">
+                    <option value="ETH">ETH</option>
+                    <option value="BTC" disabled>BTC</option>
+                    <option value="DGTX" disabled>DGTX</option>
+                </select>
+                <label>
+                    Amount
+                    <input type="number" name="period-amount-1" id="period-amount-1" value="1"/>
+                </label>
+                <label for="period-nonce-1">
+                    Nonce
+                    <input type="text" name="period-nonce-1" id="period-nonce-1"/>
+                </label>
+                <label for="period-buy-1">Buy</label><input type="radio" name="period-trade-1" id="period-buy-1"
+                                                            value="1"/>
+                <label for="period-sell-1">Sell</label><input type="radio" name="period-trade-1" id="period-sell-1"
+                                                              value="0"/>
+            </li>
+            <li>
+                <label for="period-currency-2">Currency</label>
+                <select name="period-currency" id="period-currency-2">
+                    <option value="ETH">ETH</option>
+                    <option value="BTC" disabled>BTC</option>
+                    <option value="DGTX" disabled>DGTX</option>
+                </select>
+                <label>
+                    Amount
+                    <input type="number" name="period-amount-2" id="period-amount-2" value="1"/>
+                </label>
+                <label for="period-nonce-2">
+                    Nonce
+                    <input type="text" name="period-nonce-2" id="period-nonce-2"/>
+                </label>
+                <label for="period-buy-2">Buy</label><input type="radio" name="period-trade-2" id="period-buy-2"
+                                                            value="1"/>
+                <label for="period-sell-2">Sell</label><input type="radio" name="period-trade-2" id="period-sell-2"
+                                                              value="0"/>
+            </li>
+        </ol>
+        <input type="number" id="generate-balance" name="generate-balance"/>
+        <input type="submit" id="generate-submit" name="generate-submit" value="Generate"/>
+    </form>
+</div>
+</body>
+</html>

@@ -55,62 +55,109 @@
     window.addEventListener('load', () => setTimeout(async () => {
         if (window.ethereum) {
             window.web3 = new Web3(window.ethereum);
-            try {
-                // Request account access if needed
-                const accounts = await window.ethereum.enable();
+            // try {
+            // Request account access if needed
+            const accounts = await window.ethereum.enable();
 
-                fetch("proving_key.bin").then((response) => {
-                    return response.arrayBuffer();
-                }).then((b) => {
-                    window.provingKey = b;
-                    fetch("witness.json").then((response) => {
-                        return response.json();
-                    }).then(async (b) => {
-                        window.witness = b;
-                        window.proof = await genProof(binWitness(b), window.provingKey);
+            const verificationKeyRequest = await fetch('../SNARK/build/circuits/income_verification_key.json');
+            const verificationKey = await verificationKeyRequest.json();
 
-                        fetch("verification_key.json").then((response) => {
-                            return response.json();
-                        }).then((b) => {
-                            window.verificationKey = b;
+            // const circuitDefRequest = await fetch('../SNARK/build/circuits/income.json');
+            // const circuitDef = await circuitDefRequest.json();
+            // const circuit = new Circuit(circuitDef);
+            // const witness = circuit.calculateWitness({
+            //     "type": [1, 0],
+            //     "value": [2, 1],
+            //     "salt": [11, 22],
+            //     "previousBalance": [200, 0],
+            //     "previousBalanceHash": "15908070228732390218204169968729456547298033751842088798219911969030545051409",
+            //     "hash": ["1642007188384874626844607717200885045131494880922299681771429043555167555148",
+            //         "17823975453993386318921224321352724800265319135009016425352400193970644780819"],
+            //     "price": [100, 200, 300]
+            // });
 
-                            fetch("public.json").then((response) => {
-                                return response.json();
-                            }).then((b) => {
-                                verify(window.verificationKey, b, window.proof);
-                            });
-                        });
-                    });
+            // fetch("proving_key.bin").then((response) => {
+            //     return response.arrayBuffer();
+            // }).then((b) => {
+            //     window.provingKey = b;
 
-                }).catch((err) => {
-                    updateBanner(err);
-                    throw err;
-                });
+            const witness = await window.witness({
+                "type": [1, 0],
+                "value": [2, 1],
+                "salt": [11, 22],
+                "previousBalance": [200, 0],
+                "previousBalanceHash": "15908070228732390218204169968729456547298033751842088798219911969030545051409",
+                "hash": ["1642007188384874626844607717200885045131494880922299681771429043555167555148",
+                    "17823975453993386318921224321352724800265319135009016425352400193970644780819"],
+                "price": [100, 200, 300]
+            });
 
-                // const cir = new Circuit(cirDef);
-                // const witness = cir.calculateWitness({"a": "33", "b": "34"});
+            fetch("public.json").then((response) => {
+                return response.json();
+            }).then((b) => {
+                verify(verificationKey, b, witness);
+            });
+            // window.proof = await genProof(binWitness(witness), provingKey);
 
-                // const myRealContract = new window.web3.eth.Contract(realContractData.abi, realContractData.address);
-                // myRealContract.methods.currentAnswer().call(6643503-3000000).then((result) => {
-                //     updateBanner(result);
-                // });
 
-                const MyContract = new window.web3.eth.Contract(contractData.abi, contractData.address);
-                MyContract.methods.priceBTC().call().then((result) => {
-                    updateBanner(result);
-                });
-                // MyContract.methods.newPrice(256).send({
-                //     from: accounts[0],
-                //     // value: '0x00'
-                // });
+            // fetch('../verification_key.json').then((response) => {
+            //     return response.json();
+            // }).then((b) => {
+            //     window.verificationKey = b;
+            //
+            //     fetch("public.json").then((response) => {
+            //         return response.json();
+            //     }).then((b) => {
+            //         verify(window.verificationKey, b, witness);
+            //     });
+            // });
+            // fetch("witness.json").then((response) => {
+            //     return response.json();
+            // }).then(async (b) => {
+            //     window.witness = b;
+            //     window.proof = await genProof(binWitness(b), provingKey);
+            //
+            //     fetch("verification_key.json").then((response) => {
+            //         return response.json();
+            //     }).then((b) => {
+            //         window.verificationKey = b;
+            //
+            //         fetch("public.json").then((response) => {
+            //             return response.json();
+            //         }).then((b) => {
+            //             verify(window.verificationKey, b, window.proof);
+            //         });
+            //     });
+            // });
 
-            } catch (error) {
-                updateBanner(`User denied account access... ${error}`);
-            }
+            // }).catch((err) => {
+            //     updateBanner(err);
+            //     throw err;
+            // });
+
+            // const cir = new Circuit(cirDef);
+            // const witness = cir.calculateWitness({"a": "33", "b": "34"});
+
+            // const myRealContract = new window.web3.eth.Contract(realContractData.abi, realContractData.address);
+            // myRealContract.methods.currentAnswer().call(6643503-3000000).then((result) => {
+            //     updateBanner(result);
+            // });
+
+            window.MyContract = new window.web3.eth.Contract(contractData.abi, contractData.address);
+            MyContract.methods.priceBTC().call().then((result) => {
+                updateBanner(result);
+            });
+            // MyContract.methods.newPrice(256).send({
+            //     from: accounts[0],
+            //     // value: '0x00'
+            // });
+
+            // } catch (error) {
+            //     updateBanner(`User denied account access... ${error}`);
+            // }
         } else {
             updateBanner('Non-Ethereum browser detected. You should consider trying MetaMask!');
         }
-
 
     }, 1000));
 

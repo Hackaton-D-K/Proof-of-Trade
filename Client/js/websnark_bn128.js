@@ -2396,6 +2396,8 @@ var bigInt = (function (undefined) {
     };
     NativeBigInt.prototype.shiftRight = SmallInteger.prototype.shiftRight = BigInteger.prototype.shiftRight;
 
+    BigInteger.prototype.shr = BigInteger.prototype.shiftRight;
+
     function bitwise(x, y, fn) {
         y = parseValue(y);
         var xSign = x.isNegative(), ySign = y.isNegative();
