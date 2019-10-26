@@ -11,20 +11,25 @@ async function load() {
 
     document.getElementById('loading').innerText = '';
 
-    document.getElementById('generate-form').addEventListener('submit',  (event) => {
+    document.getElementById('generate-form').addEventListener('submit', (event) => {
         (async () => {
-            const price = await oracle.methods.currentAnswer().call();
             const len = await myContract.methods.getTradeLen(accounts[0]).call();
-            const a = await myContract.methods.signals(accounts[0], len - 1).call();
-            const b = await myContract.methods.signals(accounts[0], len - 2).call();
+            const a = await myContract.methods.signals(accounts[0], len - 2).call();
+            const b = await myContract.methods.signals(accounts[0], len - 1).call();
+            // const price_a = await oracle.methods.currentAnswer().call(a.blockNumber);
+            // const price_b = await oracle.methods.currentAnswer().call(b.blockNumber);
+            // const currentBlock = await web3.eth.getBlockNumber();
+            // const price_now = await oracle.methods.currentAnswer().call(currentBlock);
+            const price_a = 100;
+            const price_b = 200;
+            const price_now = 300;
 
             const amount_1 = document.getElementById('period-amount-1').value;
             const nonce_1 = document.getElementById('period-nonce-1').value;
             const types_1 = document.getElementsByName('period-trade-1');
             let type_1;
             for (let i = 0; i < types_1.length; i++) {
-                if (types_1[i].checked)
-                {
+                if (types_1[i].checked) {
                     type_1 = types_1[i].value;
                     break;
                 }
@@ -35,24 +40,38 @@ async function load() {
             const types_2 = document.getElementsByName('period-trade-2');
             let type_2;
             for (let i = 0; i < types_2.length; i++) {
-                if (types_2[i].checked)
-                {
-                    type_1 = types_2[i].value;
+                if (types_2[i].checked) {
+                    type_2 = types_2[i].value;
                     break;
                 }
             }
 
-            const balance = document.getElementById('generate-balance').value;
+            const balanceUSD = document.getElementById('generate-balance-usd').value;
+            const balanceETH = document.getElementById('generate-balance-eth').value;
 
-            const proof = await window.witness({
-                "type": [1, 0],
-                "value": [2, 1],
-                "salt": [11, 22],
-                "previousBalance": [200, 0],
-                "previousBalanceHash": "15908070228732390218204169968729456547298033751842088798219911969030545051409",
-                "hash": ["1642007188384874626844607717200885045131494880922299681771429043555167555148",
-                    "17823975453993386318921224321352724800265319135009016425352400193970644780819"],
-                "price": [100, 200, 300]
+            const previousBalanceHash = await myContract.methods.balanceHashes(accounts[0]).call();
+
+            let input = {
+                "type": [parseInt(type_1), parseInt(type_2)],
+                "value": [parseInt(amount_1), parseInt(amount_2)],
+                "salt": [parseInt(nonce_1), parseInt(nonce_2)],
+                "previousBalance": [parseInt(balanceUSD), parseInt(balanceETH)],
+                "previousBalanceHash": previousBalanceHash,
+                "hash": [a.hash, b.hash],
+                "price": [parseInt(price_a), parseInt(price_b), parseInt(price_now)]
+            };
+            const proof = await window.witness(input);
+            let newVar = {
+                a: [web3.eth.abi.encodeParameter('uint256', proof.pi_a[0]), web3.eth.abi.encodeParameter('uint256', proof.pi_a[1])],
+                b: [[
+                    web3.eth.abi.encodeParameter('uint256', proof.pi_b[0][0]), web3.eth.abi.encodeParameter('uint256', proof.pi_b[0][1])
+                ], [
+                    web3.eth.abi.encodeParameter('uint256', proof.pi_b[1][0]), web3.eth.abi.encodeParameter('uint256', proof.pi_b[1][1])
+                ]],
+                c: [web3.eth.abi.encodeParameter('uint256', proof.pi_c[0]), web3.eth.abi.encodeParameter('uint256', proof.pi_c[1])]
+            };
+            window.myContract.methods.addPeriodProof(parseInt(proof.publicSignals[1]), newVar, proof.publicSignals[0]).send({
+                from: accounts[0],
             });
         })();
         event.preventDefault();
@@ -103,7 +122,9 @@ async function load() {
         } else if (nonce == "") {
             document.getElementById('signal-error').innerText = 'Nonce is empty';
         } else {
-            window.myContract.methods.addSignal(window.signalHash(0, amount, nonce)).send({
+            let signalHash = window.signalHash(0, amount, nonce);
+            console.log(signalCurrency);
+            window.myContract.methods.addSignal(signalHash).send({
                 from: accounts[0],
             });
         }

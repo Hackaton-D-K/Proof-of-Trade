@@ -19,92 +19,8 @@ window.oracleContractData = {
 };
 
 window.contractData = {
-    address: '0x53becaa69c0a161cddd7ea5dcd812e49931fb3bd',
+    address: '0x2321a7cffc90753ceaaa4646a3bf0215f42ec792',
     abi: [
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "getLastSignal",
-            "outputs": [
-                {
-                    "components": [
-                        {
-                            "internalType": "uint256",
-                            "name": "blockNumber",
-                            "type": "uint256"
-                        },
-                        {
-                            "internalType": "string",
-                            "name": "hash",
-                            "type": "string"
-                        }
-                    ],
-                    "internalType": "struct TradeStorage.Signal[2]",
-                    "name": "twoSignal",
-                    "type": "tuple[2]"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "trader",
-                    "type": "address"
-                }
-            ],
-            "name": "getTradeLen",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "string",
-                    "name": "email",
-                    "type": "string"
-                }
-            ],
-            "name": "newTrader",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "trader",
-                    "type": "address"
-                }
-            ],
-            "name": "getProofLen",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
         {
             "constant": false,
             "inputs": [
@@ -145,6 +61,141 @@ window.contractData = {
             "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "newSinal",
+                    "type": "string"
+                }
+            ],
+            "name": "addSignal",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "email",
+                    "type": "string"
+                }
+            ],
+            "name": "newTrader",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "balanceHashes",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "emails",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "trader",
+                    "type": "address"
+                }
+            ],
+            "name": "getProofLen",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "trader",
+                    "type": "address"
+                }
+            ],
+            "name": "getTradeLen",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "lastProofBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
             "type": "function"
         },
         {
@@ -194,11 +245,6 @@ window.contractData = {
                     "internalType": "struct TradeStorage.Proof",
                     "name": "proof",
                     "type": "tuple"
-                },
-                {
-                    "internalType": "string",
-                    "name": "balanceHash",
-                    "type": "string"
                 }
             ],
             "payable": false,
@@ -229,42 +275,6 @@ window.contractData = {
                 {
                     "internalType": "string",
                     "name": "hash",
-                    "type": "string"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "string",
-                    "name": "newSinal",
-                    "type": "string"
-                }
-            ],
-            "name": "addSignal",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "name": "emails",
-            "outputs": [
-                {
-                    "internalType": "string",
-                    "name": "",
                     "type": "string"
                 }
             ],
