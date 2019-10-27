@@ -40,8 +40,8 @@ async function load() {
 
 async function verifyProofByIndex(address, index) {
     let periodProof = await myContract.methods.periodProofs(address, index).call();
-    let a = await myContract.methods.signals(accounts[0], 2 * index).call(); //TODO change function
-    let b = await myContract.methods.signals(accounts[0], 2 * index + 1).call();
+    let a = await myContract.methods.signals(address, 2 * index).call(); //TODO change function
+    let b = await myContract.methods.signals(address, 2 * index + 1).call();
     let price_a = Math.round((await oracle.methods.currentAnswer().call(a.blockNumber)) / Math.pow(10, 8));
     let price_b = Math.round((await oracle.methods.currentAnswer().call(b.blockNumber)) / Math.pow(10, 8));
     // let currentBlock = await web3.eth.getBlockNumber();
