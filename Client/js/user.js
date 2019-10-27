@@ -27,11 +27,11 @@ async function load() {
             let periodProof = await myContract.methods.periodProofs(address, j).call();
             let lastPeriodProof = {y: null};
             if (j === 0) {
-                lastPeriodProof.y = 200;
+                lastPeriodProof.y = 1000;
             } else {
                 lastPeriodProof = await myContract.methods.periodProofs(address, j - 1).call();
             }
-            let profit = (((periodProof.y - lastPeriodProof.y) / periodProof.y) * 100).toFixed(2);
+            let profit = (((periodProof.y - lastPeriodProof.y) / lastPeriodProof.y) * 100).toFixed(2);
             proofsAndYelds += `<span class="yeld">${j}. Profit: <span class="${profit < 0 ? 'failed' : 'good'}">${profit}%</span> <span id="verify-${address}-${j}"><a href="#" onclick="verifyProofByIndex('${address}', ${j}); return false;" class="proof-verify">Verify</a></span></span>`;
         }
         traders.innerHTML += `<tr><td><b>Trader ${i}:</b></td><td>${email}</td><td>${address}</td><td>${proofsAndYelds}</td></tr>`;
@@ -52,7 +52,7 @@ async function verifyProofByIndex(address, index) {
     // let price_now = 300;
     let previousBalanceHash;
     if (index === 0) {
-        previousBalanceHash = '15908070228732390218204169968729456547298033751842088798219911969030545051409';
+        previousBalanceHash = '12991363837217894993991711342410433599666196004667524206273513024950584067662';
     } else {
         previousBalanceHash = (await myContract.methods.periodProofs(address, index - 1).call()).newBalanceHash;
     }
@@ -70,7 +70,7 @@ function verify(verificationKey, publicSignals, proof, block) {
             const end = new Date().getTime();
             const time = end - start;
             // document.getElementById("time").innerHTML = `Time to compute: ${time}ms`;
-            block.innerHTML = (res === true) ? '<span class="good">GOOD</span>' : '<span class="failed">Verification failed</span>';
+            block.innerHTML = (res === true) ? '<span class="good">GOOD</span>' : '<span class="failed">Failed</span>';
         });
     });
 }

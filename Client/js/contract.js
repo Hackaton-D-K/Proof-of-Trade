@@ -19,7 +19,7 @@ window.oracleContractData = {
 };
 
 window.contractData = {
-    address: '0x7d6458270470d5d9e5662457e6c59057b83713f3',
+    address: '0x84a353d56d6d9fd5141b81996b0019fcebca711e',
     abi: [
         {
             "constant": false,

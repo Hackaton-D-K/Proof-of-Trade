@@ -52,7 +52,7 @@ async function load() {
             const proofLen = parseInt(await myContract.methods.getProofLen(accounts[0]).call());
             let previousBalanceHash;
             if (proofLen === 0) {
-                previousBalanceHash = '15908070228732390218204169968729456547298033751842088798219911969030545051409';
+                previousBalanceHash = '12991363837217894993991711342410433599666196004667524206273513024950584067662';
             } else {
                 previousBalanceHash = (await myContract.methods.periodProofs(accounts[0], proofLen - 1).call()).newBalanceHash;
             }
