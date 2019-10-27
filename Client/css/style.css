@@ -1,0 +1,92 @@
+body {
+    font-family: PT Mono,monospace;
+    background: #1d1d1d;
+    color: #ffffff;
+    margin: 0 auto;
+    max-width: 1100px;
+}
+
+a {
+    color: #0cafff;
+}
+
+td {
+    padding: 1em;
+}
+
+tr {
+    vertical-align: top;
+}
+
+.header {
+    background-color: #0cafff;
+    color: #000;
+    padding: 1em;
+}
+
+.header td {
+    padding: 1em;
+}
+
+.yeld {
+    display: block;
+}
+
+.header-block {
+    display: inline-block;
+    font-size: 2em;
+    font-weight: bold;
+}
+.header-title {
+    width: 49%;
+}
+
+.header-links {
+    margin-right: 0;
+    width: 50%;
+    text-align: right;
+}
+
+.table {
+    width: 100%;
+}
+
+.good {
+    color: #0f0;
+    font-weight: bold;
+}
+
+.failed {
+    color: #f00;
+    font-weight: bold;
+}
+
+.button {
+    background: #0cafff;
+    color: #000;
+    padding: .6em 2em;
+    font-size: .8em;
+    font-weight: bold;
+    border: 0;
+}
+
+.buy {
+    background: #67ff9d;
+}
+
+.sell {
+    background: #ff3c3c;
+}
+
+input {
+    padding: .6em 2em;
+    font-size: .8em;
+    background: inherit;
+    color: #fff;
+    border-color: #0cafff;
+    border-radius: 5px;
+}
+
+.period-item {
+    padding: .5em 0;
+}

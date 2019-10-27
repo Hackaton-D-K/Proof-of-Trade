@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Proof of Trade: User</title>
+    <link href="css/style.css" rel="stylesheet"/>
     <script src="js/contract.js"></script>
     <script src="js/web3.min.js"></script>
     <script src="js/BigInteger.js"></script>
@@ -12,9 +13,21 @@
     <script src="js/user.js"></script>
 </head>
 <body>
-<h1>Proof of Trade: User</h1>
+<div class="page-header">
+    <h1 class="header-block header-title">Proof of Trade</h1>
+    <div class="header-block header-links">
+        <span class="user-link">User</span> /
+        <span class="trader-link"><a href="trader.html">Trader</a></span>
+    </div>
+</div>
 <h1 id="loading">Loading...</h1>
-<table id="traders">
+<table class="table" id="traders">
+    <tr class="header">
+        <td>No.</td>
+        <td>Email</td>
+        <td>Address</td>
+        <td>Profit Verification</td>
+    </tr>
 </table>
 </body>
 </html>

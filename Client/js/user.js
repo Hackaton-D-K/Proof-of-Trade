@@ -31,9 +31,9 @@ async function load() {
             } else {
                 lastPeriodProof = await myContract.methods.periodProofs(address, j - 1).call();
             }
-            proofsAndYelds += `<li>Yeld: ${(((periodProof.y - lastPeriodProof.y) / periodProof.y) * 100).toFixed(2)}% <span id="verify-${address}-${j}"><a href="#" onclick="verifyProofByIndex('${address}', ${j}); return false;" class="proof-verify">Verify</a></span></li>`;
+            proofsAndYelds += `<span class="yeld">${j}. Profit: ${(((periodProof.y - lastPeriodProof.y) / periodProof.y) * 100).toFixed(2)}% <span id="verify-${address}-${j}"><a href="#" onclick="verifyProofByIndex('${address}', ${j}); return false;" class="proof-verify">Verify</a></span></span>`;
         }
-        traders.innerHTML += `<tr><td>Trader ${i}:</td><td>${email}</td><td>${address}</td><td><ol>${proofsAndYelds}</ol></td></tr>`;
+        traders.innerHTML += `<tr><td><b>Trader ${i}:</b></td><td>${email}</td><td>${address}</td><td>${proofsAndYelds}</td></tr>`;
     }
 
 }
@@ -69,7 +69,7 @@ function verify(verificationKey, publicSignals, proof, block) {
             const end = new Date().getTime();
             const time = end - start;
             // document.getElementById("time").innerHTML = `Time to compute: ${time}ms`;
-            block.innerHTML = (res === true) ? "GOOD" : "Verification failed";
+            block.innerHTML = (res === true) ? '<span class="good">GOOD</span>' : '<span class="failed">Verification failed</span>';
         });
     });
 }
