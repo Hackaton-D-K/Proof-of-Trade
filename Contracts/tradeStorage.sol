@@ -17,21 +17,19 @@ contract TradeStorage {
     struct PeriodProof {
         uint y;
         Proof proof;
+        uint blockNumber;
+        string newBalanceHash; // TODO add period
     }
     
     address[] public traders;
     mapping(address => Signal[]) public signals;
     mapping(address => PeriodProof[]) public periodProofs;
     mapping(address => string) public emails;
-    mapping(address => string[]) public balanceHashes;
-    mapping(address => uint[]) public lastProofBlock;
     
     
     function newTrader(string calldata email) external {
         traders.push(msg.sender);
         emails[msg.sender] = email;
-        balanceHashes[msg.sender].push("15908070228732390218204169968729456547298033751842088798219911969030545051409");
-        lastProofBlock[msg.sender].push(block.number);
     }
     
     function addSignal(string calldata newSinal) external {
@@ -40,10 +38,8 @@ contract TradeStorage {
     }
     
     function addPeriodProof(uint256 yield, Proof calldata proof, string calldata balanceHash, uint256 blockNumber) external {
-        PeriodProof memory pr = PeriodProof(yield, proof);
+        PeriodProof memory pr = PeriodProof(yield, proof, blockNumber, balanceHash);
         periodProofs[msg.sender].push(pr);
-        balanceHashes[msg.sender].push(balanceHash);
-        lastProofBlock[msg.sender].push(blockNumber);
     }
     
     function getTradeLen(address trader) external view returns(uint) {
@@ -58,8 +54,9 @@ contract TradeStorage {
         return traders.length;
     }
     
-    function getBalnceHashesLen(address trader) external view returns(uint) {
-        return balanceHashes[trader].length;
+    // for demo
+    function changeTradeTime(address trader, uint tradeId, uint tradeBlock) external {
+        signals[trader][tradeId].blockNumber = tradeBlock;
     }
     
 }
