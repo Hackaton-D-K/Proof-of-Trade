@@ -31,7 +31,8 @@ async function load() {
             } else {
                 lastPeriodProof = await myContract.methods.periodProofs(address, j - 1).call();
             }
-            proofsAndYelds += `<span class="yeld">${j}. Profit: ${(((periodProof.y - lastPeriodProof.y) / periodProof.y) * 100).toFixed(2)}% <span id="verify-${address}-${j}"><a href="#" onclick="verifyProofByIndex('${address}', ${j}); return false;" class="proof-verify">Verify</a></span></span>`;
+            let profit = (((periodProof.y - lastPeriodProof.y) / periodProof.y) * 100).toFixed(2);
+            proofsAndYelds += `<span class="yeld">${j}. Profit: <span class="${profit < 0 ? 'failed' : 'good'}">${profit}%</span> <span id="verify-${address}-${j}"><a href="#" onclick="verifyProofByIndex('${address}', ${j}); return false;" class="proof-verify">Verify</a></span></span>`;
         }
         traders.innerHTML += `<tr><td><b>Trader ${i}:</b></td><td>${email}</td><td>${address}</td><td>${proofsAndYelds}</td></tr>`;
     }

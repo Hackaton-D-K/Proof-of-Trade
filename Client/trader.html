@@ -21,7 +21,7 @@
     </div>
 </div>
 <h1 id="loading">Loading...</h1>
-<div id="add-account">
+<div class="block" id="add-account">
     <h3>0. Add Account Data</h3>
     <form id="account-form" name="account-form">
         <div class="failed" id="account-error"></div>
@@ -32,7 +32,7 @@
         <input class="button" type="submit" name="account-send" value="Send"/>
     </form>
 </div>
-<div id="add-signal">
+<div class="block" id="add-signal">
     <h3>1. Add Signal</h3>
     <form id="signal-form" name="signal-form">
         <div class="failed" id="signal-error"></div>
@@ -54,7 +54,7 @@
         <input class="button sell" type="button" name="signal-sell" id="signal-sell" value="Sell"/>
     </form>
 </div>
-<div id="period">
+<div class="block" id="period">
     <h3>2. Create Period Profit Proof</h3>
     <form id="generate-form" name="generate-form">
         <div class="failed" id="generate-error"></div>
@@ -63,7 +63,7 @@
                                                                     name="generate-balance"/>
         <label for="generate-balance-eth">ETH Balance</label><input type="number" id="generate-balance-eth"
                                                                     name="generate-balance"/>
-        <p>Insert private trades data:</p>
+        <p style="margin-top: 3em">Insert private trades data:</p>
         <ol>
             <li class="period-item">
                 <label for="period-currency-1">Currency</label>
